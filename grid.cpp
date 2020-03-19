@@ -105,7 +105,7 @@ Grid::Grid(int x, int y) : width(x), height(y)
  * @return
  *      The width of the grid.
  */
-int Grid::get_width(){
+int Grid::get_width() const{
     return width;
 }
 
@@ -133,7 +133,7 @@ int Grid::get_width(){
  *      The height of the grid.
  */
 
-int Grid::get_height(){
+int Grid::get_height() const{
     return height;
 }
 
@@ -160,7 +160,7 @@ int Grid::get_height(){
  * @return
  *      The number of total cells.
  */
-int Grid::get_total_cells(){
+int Grid::get_total_cells() const{
     return height * width;
 }
 
