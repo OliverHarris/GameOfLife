@@ -160,6 +160,9 @@ int Grid::get_height(){
  * @return
  *      The number of total cells.
  */
+int Grid::get_total_cells(){
+    return height * width;
+}
 
 /**
  * Grid::get_alive_cells()
