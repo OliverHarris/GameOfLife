@@ -12,7 +12,7 @@
  * @date March, 2020
  */
 #include "grid.h"
-
+#include <sstream>
 // Include the minimal number of headers needed to support your implementation.
 // #include ...
 
@@ -259,7 +259,10 @@ int Grid::get_dead_cells() const
  * @param square_size
  *      The new edge size for both the width and height of the grid.
  */
-
+Grid::resize(int size)
+{
+    resize(size, size);
+}
 /**
  * Grid::resize(width, height)
  *
@@ -280,6 +283,18 @@ int Grid::get_dead_cells() const
  * @param new_height
  *      The new height for the grid.
  */
+Grid::resize(int new_width, int new_height)
+{
+    char *newGrid = new char[new_width * new_height];
+    //fill it with the dead
+    for (int i = 0; i < new_width * new_height; i++)
+    {
+        newGrid[i] = Cell::DEAD;
+    }
+
+    //Todo, fill spaces from old one
+    grid = newGrid;
+}
 
 /**
  * Grid::get_index(x, y)
@@ -297,6 +312,11 @@ int Grid::get_dead_cells() const
  * @return
  *      The 1d offset from the start of the data array where the desired cell is located.
  */
+
+Grid::get_index(int x, int y) const
+{
+    return (x * width) + y;
+}
 
 /**
  * Grid::get(x, y)
@@ -326,7 +346,19 @@ int Grid::get_dead_cells() const
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
+Grid::get(int x, int y)
+{
+    if (x > width)
+    {
+        throw std::length_error("X is out of range");
+    }
+    else if (y > height)
+    {
+        throw std::length_error("Y is out of range");
+    }
 
+    return grid[get_index(x, y)];
+}
 /**
  * Grid::set(x, y, value)
  *
@@ -354,7 +386,19 @@ int Grid::get_dead_cells() const
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
+Grid::set(int x, int y, Cell value)
+{
+    if (x > width)
+    {
+        throw std::length_error("X is out of range");
+    }
+    else if (y > height)
+    {
+        throw std::length_error("Y is out of range");
+    }
 
+    grid[get_index(x, y)] = value;
+}
 /**
  * Grid::operator()(x, y)
  *
