@@ -13,6 +13,7 @@
  */
 #include "grid.h"
 #include <sstream>
+#include <iostream>
 // Include the minimal number of headers needed to support your implementation.
 // #include ...
 
@@ -29,7 +30,7 @@
  *
  */
 
-Grid::Grid() : height(0), width(0)
+Grid::Grid() : width(0), height(0)
 {
     Grid(0);
 }
@@ -56,9 +57,13 @@ Grid::Grid() : height(0), width(0)
  * @param square_size
  *      The edge size to use for the width and height of the grid.
  */
-Grid::Grid(int size)
+Grid::Grid(int size) : height(size), width(size)
 {
-    Grid(size, size);
+    grid = new char[height * width];
+    for (int i = 0; i < get_total_cells(); i++)
+    {
+        grid[i] = Cell::DEAD;
+    }
 }
 
 /**
@@ -77,7 +82,7 @@ Grid::Grid(int size)
  * @param height
  *      The height of the grid.
  */
-Grid::Grid(int x, int y) : width(x), height(y)
+Grid::Grid(int x, int y) : height(y), width(x)
 {
     grid = new char[height * width];
     for (int i = 0; i < get_total_cells(); i++)
