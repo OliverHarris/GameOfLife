@@ -378,7 +378,7 @@ Cell Grid::get(int x, int y) const
  * Grid::set(x, y, value)
  *
  * Overwrites the value at the desired coordinate.
- * The function should be //removed
+ * The function should be **rest is removed**
  * Should be implemented by invoking Grid::operator()(x, y).
  *
  * @example
