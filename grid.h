@@ -31,6 +31,7 @@ private:
     int height;
     int width;
     std::vector<char> grid;
+    int get_index(int x, int y) const;
 
 public:
     Grid();
@@ -43,7 +44,6 @@ public:
     int get_dead_cells() const;
     void resize(int size);
     void resize(int x, int y);
-    int get_index(int x, int y) const;
     Cell get(int x, int y) const;
     void set(int x, int y, Cell value);
     Grid crop(int x0, int y0, int x1, int y1);
