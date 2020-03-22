@@ -9,7 +9,7 @@
  * @date March, 2020
  */
 #pragma once
-
+#include <vector>
 // Add the minimal number of includes you need in order to declare the class.
 // #include ...
 
@@ -30,7 +30,7 @@ class Grid
 private:
     int height;
     int width;
-    char *grid;
+    std::vector<char> grid;
 
 public:
     Grid();
