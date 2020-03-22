@@ -295,7 +295,7 @@ void Grid::resize(int new_width, int new_height)
         for (int x = 0; x < new_width; x++)
         {
             int pos = (y * new_height) + x;
-            if (x > width || y > height)
+            if (x > width - 1 || y > height - 1)
             {
                 //the new grid is larger
                 newGrid.push_back(Cell::DEAD);
@@ -305,7 +305,7 @@ void Grid::resize(int new_width, int new_height)
                 //We can copy from the original grid
                 // char *answer;
                 // strcpy(answer, &grid[get_index(x, y)]);
-                newGrid.push_back(Cell::DEAD);
+                newGrid.push_back(grid[get_index(x, y)]);
             }
         }
     }
