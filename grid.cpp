@@ -334,7 +334,7 @@ void Grid::resize(int new_width, int new_height)
 
 int Grid::get_index(int x, int y) const
 {
-    return (x * width) + y;
+    return (y * width) + x;
 }
 
 /**
@@ -415,6 +415,8 @@ void Grid::set(int x, int y, Cell value)
         throw std::length_error("Y is out of range");
     }
     (*this)(x, y) = value;
+
+    //grid[get_index(x, y)] = value;
 }
 /**
  * Grid::operator()(x, y)
@@ -453,7 +455,15 @@ void Grid::set(int x, int y, Cell value)
  */
 Cell &Grid::operator()(int x, int y)
 {
-    int loc = get_index(x, y);
+    int loc;
+    try
+    {
+        loc = get_index(x, y);
+    }
+    catch (const std::exception &ex)
+    {
+        std::cerr << ex.what() << std::endl;
+    }
     return grid.at(loc);
 }
 /**
@@ -488,7 +498,15 @@ Cell &Grid::operator()(int x, int y)
  */
 const Cell &Grid::operator()(int x, int y) const
 {
-    int loc = get_index(x, y);
+    int loc;
+    try
+    {
+        loc = get_index(x, y);
+    }
+    catch (const std::exception &ex)
+    {
+        std::cerr << ex.what() << std::endl;
+    }
     return grid.at(loc);
 }
 /**
