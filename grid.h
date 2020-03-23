@@ -49,8 +49,8 @@ public:
     Grid crop(int x0, int y0, int x1, int y1) const;
     void merge(Grid, int x0, int y0, bool alive_only);
     Grid rotate(int);
-    // Cell &operator()(const int x, const int y);
-    //const Cell &operator()(const int x, const int y) const;
+    Cell &operator()(int x, int y);
+    const Cell &operator()(int x, int y) const;
 
     // How to draw an owl:
     //      Step 1. Draw a circle.
