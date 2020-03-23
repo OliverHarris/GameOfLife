@@ -414,9 +414,7 @@ void Grid::set(int x, int y, Cell value)
     {
         throw std::length_error("Y is out of range");
     }
-    //(x, y) = Cell::ALIVE;
-
-    grid[get_index(x, y)] = value;
+    (*this)(x, y) = value;
 }
 /**
  * Grid::operator()(x, y)
@@ -456,8 +454,7 @@ void Grid::set(int x, int y, Cell value)
 Cell &Grid::operator()(int x, int y)
 {
     int loc = get_index(x, y);
-    std::cout << "This op (nothing constant) is called" << std::endl;
-    return grid[loc];
+    return grid.at(loc);
 }
 /**
  * Grid::operator()(x, y)
@@ -492,8 +489,7 @@ Cell &Grid::operator()(int x, int y)
 const Cell &Grid::operator()(int x, int y) const
 {
     int loc = get_index(x, y);
-    std::cout << "This op is called" << std::endl;
-    return grid[loc];
+    return grid.at(loc);
 }
 /**
  * Grid::crop(x0, y0, x1, y1)
