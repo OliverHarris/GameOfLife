@@ -10,6 +10,7 @@
  */
 #pragma once
 #include <vector>
+#include <ostream>
 // Add the minimal number of includes you need in order to declare the class.
 // #include ...
 
@@ -51,7 +52,7 @@ public:
     Grid rotate(int) const;
     Cell &operator()(int x, int y);
     const Cell &operator()(int x, int y) const;
-
+    friend std::ostream &operator<<(std::ostream &os, const Grid &grid);
     // How to draw an owl:
     //      Step 1. Draw a circle.
     //      Step 2. Draw the rest of the owl.

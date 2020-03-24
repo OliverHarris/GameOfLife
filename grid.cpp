@@ -752,3 +752,28 @@ Grid Grid::rotate(int rotation) const
  * @return
  *      Returns a reference to the output stream to enable operator chaining.
  */
+std::ostream &operator<<(std::ostream &os, const Grid &grid)
+{
+    os << "+";
+    for (int x = 0; x < grid.get_width(); x++)
+    {
+        os << "-";
+    }
+    os << "+" << std::endl;
+    for (int y = 0; y < grid.get_height(); y++)
+    {
+        os << "|";
+        for (int x = 0; x < grid.get_width(); x++)
+        {
+            os << char(grid.get(x, y));
+        }
+        os << "|" << std::endl;
+    }
+    os << "+";
+    for (int x = 0; x < grid.get_width(); x++)
+    {
+        os << "-";
+    }
+    os << "+" << std::endl;
+    return os;
+}
