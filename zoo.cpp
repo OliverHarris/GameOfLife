@@ -205,6 +205,7 @@ void Zoo::save_ascii(std::string path, Grid grid)
         }
         file << std::endl;
     }
+    file.close();
 }
 /**
  * Zoo::load_binary(path)
