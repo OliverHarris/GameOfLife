@@ -24,7 +24,7 @@ class World
 private:
     Grid current;
     Grid next;
-    int count_neightbours(int x, int y, bool toroidal);
+    int count_neighbours(int x, int y, bool toroidal);
 
 public:
     World();
