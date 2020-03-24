@@ -24,6 +24,7 @@ class World
 private:
     Grid current;
     Grid next;
+    int count_neightbours(int x, int y, bool toroidal);
 
 public:
     World();
@@ -38,4 +39,6 @@ public:
     const Grid get_state() const;
     void resize(int square_size);
     void resize(int new_width, int new_height);
+    void step(bool toroidal);
+    void advance(int steps, bool torodial);
 };
