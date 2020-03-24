@@ -12,13 +12,16 @@
 
 // Add the minimal number of includes you need in order to declare the namespace.
 // #include ...
+#include "grid.h"
 
 /**
  * Declare the interface of the Zoo namespace for constructing lifeforms and saving and loading them from file.
  */
-namespace Zoo {
-    // How to draw an owl:
-    //      Step 1. Draw a circle.
-    //      Step 2. Draw the rest of the owl.
+namespace Zoo
+{
+// How to draw an owl:
+//      Step 1. Draw a circle.
+//      Step 2. Draw the rest of the owl.
+Grid load_ascii(std::string path);
 
-};
+}; // namespace Zoo
