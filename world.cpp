@@ -22,7 +22,6 @@
  * @date March, 2020
  */
 #include "world.h"
-
 // Include the minimal number of headers needed to support your implementation.
 // #include ...
 
@@ -37,7 +36,9 @@
  *      World world;
  *
  */
-
+World::World() : current(Grid(0)), next(Grid(0))
+{
+}
 
 /**
  * World::World(square_size)
@@ -58,7 +59,9 @@
  * @param square_size
  *      The edge size to use for the width and height of the world.
  */
-
+World::World(int size) : current(Grid(size)), next(Grid(size))
+{
+}
 
 /**
  * World::World(width, height)
@@ -75,7 +78,9 @@
  * @param height
  *      The height of the world.
  */
-
+World::World(int width, int height) : current(Grid(width, height)), next(Grid(width, height))
+{
+}
 
 /**
  * World::World(initial_state)
@@ -96,7 +101,9 @@
  * @param initial_state
  *      The state of the constructed world.
  */
-
+World::World(Grid &initial_state) : current(initial_state), next(initial_state)
+{
+}
 
 /**
  * World::get_width()
@@ -121,8 +128,10 @@
  * @return
  *      The width of the world.
  */
-
-
+int World::get_width() const
+{
+    return current.get_width();
+}
 /**
  * World::get_height()
  *
@@ -146,8 +155,10 @@
  * @return
  *      The height of the world.
  */
-
-
+int World::get_height() const
+{
+    return current.get_height();
+}
 /**
  * World::get_total_cells()
  *
@@ -171,8 +182,10 @@
  * @return
  *      The number of total cells.
  */
-
-
+int World::get_total_cells() const
+{
+    return current.get_total_cells();
+}
 /**
  * World::get_alive_cells()
  *
@@ -196,8 +209,10 @@
  * @return
  *      The number of alive cells.
  */
-
-
+int World::get_alive_cells() const
+{
+    return current.get_alive_cells();
+}
 /**
  * World::get_dead_cells()
  *
@@ -221,8 +236,10 @@
  * @return
  *      The number of dead cells.
  */
-
-
+int World::get_dead_cells() const
+{
+    return current.get_dead_cells();
+}
 /**
  * World::get_state()
  *
@@ -248,7 +265,6 @@
  *      A reference to the current state.
  */
 
-
 /**
  * World::resize(square_size)
  *
@@ -268,7 +284,6 @@
  * @param square_size
  *      The new edge size for both the width and height of the grid.
  */
-
 
 /**
  * World::resize(new_width, new_height)
@@ -292,7 +307,6 @@
  * @param new_height
  *      The new height for the grid.
  */
-
 
 /**
  * World::count_neighbours(x, y, toroidal)
@@ -326,7 +340,6 @@
  *      Returns the number of alive neighbours.
  */
 
-
 /**
  * World::step(toroidal)
  *
@@ -347,7 +360,6 @@
  *      Optional parameter. If true then the step will consider the grid as a torus, where the left edge
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
-
 
 /**
  * World::advance(steps, toroidal)
