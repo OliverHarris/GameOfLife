@@ -242,8 +242,7 @@ Grid Zoo::load_binary(std::string path)
     file.read((char *)&width, 4);
     file.read((char *)&height, 4);
 
-    std::cout << "--" << width << "x" << height << std::endl;
-    Grid g = Grid(width, height);
+      Grid g = Grid(width, height);
     int x = 0;
     int y = 0;
     char c;
@@ -308,3 +307,50 @@ Grid Zoo::load_binary(std::string path)
  * @throws
  *      Throws std::runtime_error or sub-class if the file cannot be opened.
  */
+void Zoo::save_binary(std::string path, Grid grid)
+{
+    std::ofstream file;
+    file.open(path, std::ios::out | std::ios::binary);
+    if (!file.is_open())
+    {
+        throw std::runtime_error("Couldn't open file");
+    }
+    int width = grid.get_width();
+    int height = grid.get_height();
+
+    file.write((char *)&width, 4);
+    file.write((char *)&height, 4);
+    char *buffer = new char;
+    int size = 0;
+    for (int y = 0; y < grid.get_height(); y++)
+    {
+        for (int x = 0; x < grid.get_width(); x++)
+        {
+            Cell val = grid.get(x, y);
+            int anwr = 0;
+            if (val == Cell::ALIVE)
+            {
+                anwr = 1;
+            }
+
+            *buffer |= anwr << size;
+
+            size++;
+            if (size > 7)
+            {
+
+                //write to file
+                file.write(buffer, 1);
+                size = 0;
+
+                buffer[0] = 0; //Set the array to 0!
+            }
+        }
+    }
+    if (size > 0)
+    {
+        //write to file
+        file.write(buffer, 1);
+    }
+    file.close();
+}
