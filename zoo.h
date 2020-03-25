@@ -24,5 +24,6 @@ namespace Zoo
 //      Step 2. Draw the rest of the owl.
 Grid load_ascii(std::string path);
 void save_ascii(std::string path, Grid grid);
+Grid load_binary(std::string path);
 
 }; // namespace Zoo
