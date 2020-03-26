@@ -168,11 +168,20 @@ Grid Zoo::load_ascii(const std::string &path)
     g = Grid(width, height);
     std::string line;
     getline(file, line);
+    char c;
     while (getline(file, line) && y < height)
     {
         while (x < width)
         {
-            char c = line.at(x);
+            try
+            {
+                c = line.at(x);
+            }
+            catch (const std::out_of_range &ex)
+            {
+                file.close();
+                throw std::runtime_error("Line ends unexpectedly");
+            }
             Cell answer;
             if (c == Cell::ALIVE)
             {
@@ -193,6 +202,12 @@ Grid Zoo::load_ascii(const std::string &path)
         y++;
         x = 0;
     }
+    if (y != height)
+    {
+        file.close();
+        throw std::runtime_error("Not enough lines to read");
+    }
+
     file.close();
     return g;
 }
