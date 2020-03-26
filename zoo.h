@@ -22,10 +22,10 @@ namespace Zoo
 // How to draw an owl:
 //      Step 1. Draw a circle.
 //      Step 2. Draw the rest of the owl.
-Grid load_ascii(std::string path);
-void save_ascii(std::string path, Grid grid);
-Grid load_binary(std::string path);
-void save_binary(std::string path, Grid grid);
+Grid load_ascii(const std::string &path);
+void save_ascii(const std::string &path, const Grid &grid);
+Grid load_binary(const std::string &path);
+void save_binary(const std::string &path, const Grid &grid);
 Grid glider();
 Grid light_weight_spaceship();
 Grid r_pentomino();
