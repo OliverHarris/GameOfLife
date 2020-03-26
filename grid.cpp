@@ -452,16 +452,20 @@ void Grid::set(const int x, const int y, const Cell value)
  */
 Cell &Grid::operator()(const int x, const int y)
 {
-    int loc;
+    if (x > width || y > height || x < 0 || y < 0)
+    {
+        throw std::out_of_range("X or Y out of range");
+    }
+    int loc = get_index(x, y);
+
     try
     {
-        loc = get_index(x, y);
+        return grid.at(loc);
     }
-    catch (const std::length_error &ex)
+    catch (const std::out_of_range &ex)
     {
         throw ex;
     }
-    return grid.at(loc);
 }
 /**
  * Grid::operator()(x, y)
@@ -495,17 +499,19 @@ Cell &Grid::operator()(const int x, const int y)
  */
 const Cell &Grid::operator()(const int x, const int y) const
 {
-    int loc;
+    if (x > width || y > height || x < 0 || y < 0)
+    {
+        throw std::out_of_range("X or Y out of range");
+    }
+    int loc = get_index(x, y);
     try
     {
-        loc = get_index(x, y);
+        return grid.at(loc);
     }
-    catch (const std::length_error &ex)
+    catch (const std::out_of_range &ex)
     {
-        //No cleanup needed here
         throw ex;
     }
-    return grid.at(loc);
 }
 /**
  * Grid::crop(x0, y0, x1, y1)
