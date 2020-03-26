@@ -170,7 +170,7 @@ Grid Zoo::load_ascii(const std::string &path)
     getline(file, line);
     while (getline(file, line) && y < height)
     {
-        while (x < width && line.size() > 0)
+        while (x < width)
         {
             char c = line.at(x);
             Cell answer;
@@ -224,7 +224,7 @@ Grid Zoo::load_ascii(const std::string &path)
  * @throws
  *      Throws std::runtime_error or sub-class if the file cannot be opened.
  */
-void Zoo::save_ascii(std::string path, Grid grid)
+void Zoo::save_ascii(const std::string &path, const Grid &grid)
 {
     std::ofstream file;
     file.open(path, std::ios::out);
@@ -266,7 +266,7 @@ void Zoo::save_ascii(std::string path, Grid grid)
  *          - The file cannot be opened.
  *          - The file ends unexpectedly.
  */
-Grid Zoo::load_binary(std::string path)
+Grid Zoo::load_binary(const std::string &path)
 {
     std::ifstream file;
     file.open(path, std::ios::binary);
@@ -344,7 +344,7 @@ Grid Zoo::load_binary(std::string path)
  * @throws
  *      Throws std::runtime_error or sub-class if the file cannot be opened.
  */
-void Zoo::save_binary(std::string path, Grid grid)
+void Zoo::save_binary(const std::string &path, const Grid &grid)
 {
     std::ofstream file;
     file.open(path, std::ios::out | std::ios::binary);
