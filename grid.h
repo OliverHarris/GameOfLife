@@ -45,7 +45,7 @@ public:
     int get_dead_cells() const;
     void resize(const int square_size);
     void resize(const int width, const int height);
-    Cell get(const int x, const int y) const;
+    const Cell get(const int x, const int y) const;
     void set(const int x, const int y, const Cell value);
     Grid crop(const int x0, const int y0, const int x1, const int y1) const;
     void merge(const Grid &grid, const int x0, const int y0, const bool alive_only = false);
