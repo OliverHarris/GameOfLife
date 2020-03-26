@@ -171,6 +171,12 @@ Grid Zoo::load_ascii(const std::string &path)
     char c;
     while (getline(file, line) && y < height)
     {
+        int ls = line.size();
+        if (ls > width)
+        {
+            file.close();
+            throw std::runtime_error("Line ends unexpectedly");
+        }
         while (x < width)
         {
             try
