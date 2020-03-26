@@ -545,7 +545,7 @@ Grid Grid::crop(const int x0, const int y0, const int x1, const int y1) const
 {
     if (x0 < 0 || x1 > width || y0 < 0 || y1 > height)
     {
-        throw std::length_error("The values given are out of range.");
+        throw std::length_error("the coordinates are not within the grid");
     }
     else if (x0 > x1 || y0 > y1)
     {
@@ -608,7 +608,7 @@ void Grid::merge(const Grid &other, const int x0, const int y0, const bool alive
     int my = height - y0;
     if (mx < other.width || my < other.height)
     {
-        throw std::length_error("Grid doesn't fit");
+        throw std::length_error("Other grid doesn't fit on original grid");
     }
     for (int y = 0; y < other.height; y++)
     {
@@ -653,12 +653,9 @@ void Grid::merge(const Grid &other, const int x0, const int y0, const bool alive
  * @return
  *      Returns a copy of the grid that has been rotated.
  */
-Grid Grid::rotate(const int rotation) const
+Grid Grid::rotate(const int _rotation) const
 {
-    int or2 = rotation;
-    int rot = (4 + (rotation % 4)) % 4;
-    std::cout << "O " << or2 << " now " << rotation << std::endl;
-    //if it is 0, then theres no rotation
+    int rot = (4 + (_rotation % 4)) % 4;
     int _width, _height;
     if (rot == 1 || rot == 3)
     {
@@ -671,13 +668,10 @@ Grid Grid::rotate(const int rotation) const
         _height = height;
     }
     Grid newGrid = Grid(_width, _height);
-    int count = 0;
     for (int y = 0; y < height; y++)
     {
         for (int x = 0; x < width; x++)
         {
-            count++;
-
             Cell current = (*this)(x, y);
             if (rot == 0)
             {
@@ -688,32 +682,24 @@ Grid Grid::rotate(const int rotation) const
                 //90
                 int curx = _width - y - 1;
                 int cury = x;
-                // std::cout << "90 with (" << curx << "," << cury << ")"
-                //           << " which is " << current << " the grid is " << _width << "x" << _height << std::endl;
                 newGrid(curx, cury) = current;
             }
             if (rot == 2)
             {
                 //180
-
                 int curx = _width - 1 - x;
                 int cury = _height - 1 - y;
-                // std::cout << "180 with (" << curx << "," << cury << ")"
-                //           << " which is " << current << " the grid is " << _width << "x" << _height << std::endl;
                 newGrid(curx, cury) = current;
             }
             if (rot == 3)
             {
-                //270
+                //270 (or -90)
                 int curx = y;
                 int cury = _height - x - 1;
-                // std::cout << "270 with (" << curx << "," << cury << ")"
-                //           << " which is " << current << " the grid is " << _width << "x" << _height << std::endl;
                 newGrid(curx, cury) = current;
             }
         }
     }
-    std::cout << "Grid size is " << get_total_cells() << " and i've counted " << count << std::endl;
     return newGrid;
 }
 /**
