@@ -22,7 +22,6 @@
  * @date March, 2020
  */
 #include "world.h"
-#include <iostream>
 // Include the minimal number of headers needed to support your implementation.
 // #include ...
 
