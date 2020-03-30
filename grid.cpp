@@ -295,8 +295,7 @@ void Grid::resize(int square_size)
  */
 void Grid::resize(const int new_width, const int new_height)
 {
-    std::vector<Cell> newGrid; //We don't want to init a new Grid as this
-    // Will fill it to dead for me. So we can save one loop
+    std::vector<Cell> newGrid;
     for (int y = 0; y < new_height; y++)
     {
         for (int x = 0; x < new_width; x++)
@@ -389,7 +388,6 @@ const Cell Grid::get(const int x, const int y) const
  * Grid::set(x, y, value)
  *
  * Overwrites the value at the desired coordinate.
- * The function should be **rest is removed**
  * Should be implemented by invoking Grid::operator()(x, y).
  *
  * @example
