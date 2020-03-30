@@ -483,10 +483,7 @@ void World::step(const bool toroidal)
             }
         }
     }
-
-    Grid &tmp = current;
-    current = next;
-    next = tmp;
+    std::swap(current, next);
 }
 /**
  * World::advance(steps, toroidal)
