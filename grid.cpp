@@ -85,6 +85,17 @@ Grid::Grid(const int _width, const int _height) : height(_height), width(_width)
         grid.push_back(Cell::DEAD);
     }
 }
+/** Grid::~Grid()
+ * 
+ *  Deconstructs the Grid
+ * 
+ *  @example
+ *      Grid g = Grid();
+ *      delete g;
+ */
+Grid::~Grid()
+{
+}
 
 /**
  * Grid::get_width()

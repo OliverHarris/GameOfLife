@@ -36,6 +36,7 @@ private:
 
 public:
     Grid();
+    ~Grid();
     explicit Grid(const int square_size);
     Grid(const int width, const int height);
     int get_height() const;
