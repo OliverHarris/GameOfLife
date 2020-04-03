@@ -9,11 +9,11 @@
  * @date March, 2020
  */
 #pragma once
-#include <vector>
-#include <ostream>
+
 // Add the minimal number of includes you need in order to declare the class.
 // #include ...
-
+#include <vector>
+#include <ostream>
 /**
  * A Cell is a char limited to two named values for Cell::DEAD and Cell::ALIVE.
  */
@@ -36,7 +36,6 @@ private:
 
 public:
     Grid();
-    ~Grid();
     explicit Grid(const int square_size);
     Grid(const int width, const int height);
     int get_height() const;
