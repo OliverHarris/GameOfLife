@@ -123,13 +123,16 @@ Grid Zoo::load_ascii(std::string path)
     {
         throw std::runtime_error("Couldn't open file");
     }
-    bool first = true;
     int width, height;
     int x = 0, y = 0;
     Grid g;
     //First two will be the width and height
     file >> width;
     file >> height;
+    if (width < 0 || height < 0)
+    {
+        throw std::runtime_error("Width or height is negative");
+    }
     g = Grid(width, height);
     std::string line;
     getline(file, line);
@@ -184,7 +187,25 @@ Grid Zoo::load_ascii(std::string path)
  * @throws
  *      Throws std::runtime_error or sub-class if the file cannot be opened.
  */
+void Zoo::save_ascii(std::string path, Grid grid)
+{
+    std::ofstream file;
+    file.open(path, std::ios::out);
+    if (!file.is_open())
+    {
+        throw std::runtime_error("Width or height is negative");
+    }
 
+    file << grid.get_width() << " " << grid.get_height() << std::endl;
+    for (int y = 0; y < grid.get_height(); y++)
+    {
+        for (int x = 0; x < grid.get_width(); x++)
+        {
+            file << char(grid.get(x, y));
+        }
+        file << std::endl;
+    }
+}
 /**
  * Zoo::load_binary(path)
  *
