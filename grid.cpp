@@ -259,7 +259,7 @@ int Grid::get_dead_cells() const
  * @param square_size
  *      The new edge size for both the width and height of the grid.
  */
-Grid::resize(int size)
+void Grid::resize(int size)
 {
     resize(size, size);
 }
@@ -283,7 +283,7 @@ Grid::resize(int size)
  * @param new_height
  *      The new height for the grid.
  */
-Grid::resize(int new_width, int new_height)
+void Grid::resize(int new_width, int new_height)
 {
     char *newGrid = new char[new_width * new_height];
     //fill it with the dead
@@ -313,7 +313,7 @@ Grid::resize(int new_width, int new_height)
  *      The 1d offset from the start of the data array where the desired cell is located.
  */
 
-Grid::get_index(int x, int y) const
+int Grid::get_index(int x, int y) const
 {
     return (x * width) + y;
 }
@@ -346,7 +346,7 @@ Grid::get_index(int x, int y) const
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-Grid::get(int x, int y)
+Cell Grid::get(int x, int y) const
 {
     if (x > width)
     {
@@ -356,8 +356,18 @@ Grid::get(int x, int y)
     {
         throw std::length_error("Y is out of range");
     }
-
-    return grid[get_index(x, y)];
+    char val = grid[get_index(x, y)];
+    Cell answer;
+    switch (val)
+    {
+    case ' ':
+        answer = Cell::DEAD;
+        break;
+    case '#':
+        answer = Cell::ALIVE;
+        break;
+    }
+    return answer;
 }
 /**
  * Grid::set(x, y, value)
@@ -386,7 +396,7 @@ Grid::get(int x, int y)
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-Grid::set(int x, int y, Cell value)
+void Grid::set(int x, int y, Cell value)
 {
     if (x > width)
     {
@@ -500,7 +510,9 @@ Grid::set(int x, int y, Cell value)
  *      std::exception or sub-class if x0,y0 or x1,y1 are not valid coordinates within the grid
  *      or if the crop window has a negative size.
  */
-
+Grid Grid::crop(int x0, int y0, int x1, int y1)
+{
+}
 /**
  * Grid::merge(other, x0, y0, alive_only = false)
  *
@@ -538,7 +550,9 @@ Grid::set(int x, int y, Cell value)
  * @throws
  *      std::exception or sub-class if the other grid being placed does not fit within the bounds of the current grid.
  */
-
+void Grid::merge(Grid other, int x0, int y0, bool alive_only = false)
+{
+}
 /**
  * Grid::rotate(rotation)
  *
@@ -561,7 +575,9 @@ Grid::set(int x, int y, Cell value)
  * @return
  *      Returns a copy of the grid that has been rotated.
  */
-
+Grid Grid::rotate(int rotation)
+{
+}
 /**
  * operator<<(output_stream, grid)
  *
