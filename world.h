@@ -28,6 +28,7 @@ private:
 
 public:
     World();
+    ~World();
     explicit World(const int size);
     World(const int width, const int height);
     World(const Grid &initial_state);
