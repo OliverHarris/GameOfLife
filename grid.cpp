@@ -189,7 +189,7 @@ int Grid::get_total_cells() const{
  */
 int Grid::get_alive_cells() const{
     int alive = 0;
-    for(int i =0; i < get_total_cells(),i++){
+    for(int i =0; i < get_total_cells(),i++;){
         if(grid[i] == Cell::ALIVE){
             alive++;
         }
@@ -222,7 +222,7 @@ int Grid::get_alive_cells() const{
  */
 int Grid::get_dead_cells() const{
     int dead = 0;
-    for(int i =0; i < get_total_cells(),i++){
+    for(int i =0; i < get_total_cells(),i++;){
         if(grid[i] == Cell::DEAD){
             dead++;
         }
