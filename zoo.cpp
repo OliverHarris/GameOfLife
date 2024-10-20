@@ -146,7 +146,7 @@ Grid Zoo::light_weight_spaceship()
  *          - Newline characters are not found when expected during parsing.
  *          - The character for a cell is not the ALIVE or DEAD character.
  */
-Grid Zoo::load_ascii(std::string path)
+Grid Zoo::load_ascii(const std::string &path)
 {
     std::ifstream file;
     file.open(path, std::ios::in);
@@ -162,6 +162,7 @@ Grid Zoo::load_ascii(std::string path)
     file >> height;
     if (width < 0 || height < 0)
     {
+        file.close();
         throw std::runtime_error("Width or height is negative");
     }
     g = Grid(width, height);
@@ -177,9 +178,14 @@ Grid Zoo::load_ascii(std::string path)
             {
                 answer = Cell::ALIVE;
             }
-            else
+            else if (c == Cell::DEAD)
             {
                 answer = Cell::DEAD;
+            }
+            else
+            {
+                file.close();
+                throw std::runtime_error("Unknown character");
             }
             g.set(x, y, answer);
             x++;
