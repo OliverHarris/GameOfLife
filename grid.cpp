@@ -59,10 +59,9 @@ Grid::Grid() : width(0), height(0)
  */
 Grid::Grid(int size) : height(size), width(size)
 {
-    grid = new char[height * width];
     for (int i = 0; i < get_total_cells(); i++)
     {
-        grid[i] = Cell::DEAD;
+        grid.push_back(Cell::DEAD);
     }
 }
 
@@ -84,10 +83,9 @@ Grid::Grid(int size) : height(size), width(size)
  */
 Grid::Grid(int x, int y) : height(y), width(x)
 {
-    grid = new char[height * width];
     for (int i = 0; i < get_total_cells(); i++)
     {
-        grid[i] = Cell::DEAD;
+        grid.push_back(Cell::DEAD);
     }
 }
 
@@ -290,15 +288,6 @@ void Grid::resize(int size)
  */
 void Grid::resize(int new_width, int new_height)
 {
-    char *newGrid = new char[new_width * new_height];
-    //fill it with the dead
-    for (int i = 0; i < new_width * new_height; i++)
-    {
-        newGrid[i] = Cell::DEAD;
-    }
-
-    //Todo, fill spaces from old one
-    grid = newGrid;
 }
 
 /**
