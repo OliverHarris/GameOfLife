@@ -31,7 +31,7 @@
  *
  */
 
-Grid::Grid() : width(0), height(0)
+Grid::Grid() : height(0), width(0)
 {
     Grid(0);
 }
@@ -294,7 +294,6 @@ void Grid::resize(int new_width, int new_height)
     {
         for (int x = 0; x < new_width; x++)
         {
-            int pos = (y * new_height) + x;
             if (x > width - 1 || y > height - 1)
             {
                 //the new grid is larger
