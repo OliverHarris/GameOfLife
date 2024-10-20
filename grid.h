@@ -16,25 +16,29 @@
 /**
  * A Cell is a char limited to two named values for Cell::DEAD and Cell::ALIVE.
  */
-enum Cell : char {
-    DEAD  = ' ',
+enum Cell : char
+{
+    DEAD = ' ',
     ALIVE = '#'
 };
 
 /**
  * Declare the structure of the Grid class for representing a 2d grid of cells.
  */
-class Grid {
-    private:
-        int height;
-        int width;
-        char grid;
-    public:
-        Grid();
-        Grid(int);
-        Grid(int x,int y);
+class Grid
+{
+private:
+    int height;
+    int width;
+    char *grid;
+
+public:
+    Grid();
+    Grid(int);
+    Grid(int x, int y);
+    int get_height();
+    int get_width();
     // How to draw an owl:
     //      Step 1. Draw a circle.
     //      Step 2. Draw the rest of the owl.
-
 };
