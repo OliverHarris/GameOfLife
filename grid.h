@@ -46,7 +46,7 @@ public:
     void resize(int x, int y);
     Cell get(int x, int y) const;
     void set(int x, int y, Cell value);
-    Grid crop(int x0, int y0, int x1, int y1);
+    Grid crop(int x0, int y0, int x1, int y1) const;
     void merge(Grid, int x0, int y0, bool alive_only);
     Grid rotate(int);
 
