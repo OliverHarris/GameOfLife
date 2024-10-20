@@ -37,8 +37,19 @@ public:
     Grid(int);
     Grid(int x, int y);
     int get_height() const;
-    int get_width() const ;
+    int get_width() const;
     int get_total_cells() const;
+    int get_alive_cells() const;
+    int get_dead_cells() const;
+    void resize(int size);
+    void resize(int x, int y);
+    int get_index(int x, int y) const;
+    Cell get(int x, int y) const;
+    void set(int x, int y, Cell value);
+    Grid crop(int x0, int y0, int x1, int y1);
+    void merge(Grid, int x0, int y0, bool alive_only);
+    Grid rotate(int);
+
     // How to draw an owl:
     //      Step 1. Draw a circle.
     //      Step 2. Draw the rest of the owl.
