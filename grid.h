@@ -47,7 +47,7 @@ public:
     Cell get(int x, int y) const;
     void set(int x, int y, Cell value);
     Grid crop(int x0, int y0, int x1, int y1) const;
-    void merge(Grid, int x0, int y0, bool alive_only);
+    void merge(Grid, int x0, int y0, bool alive_only = false);
     Grid rotate(int);
     Cell &operator()(int x, int y);
     const Cell &operator()(int x, int y) const;
