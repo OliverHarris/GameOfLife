@@ -24,21 +24,21 @@ class World
 private:
     Grid current;
     Grid next;
-    int count_neighbours(int x, int y, bool toroidal);
+    int count_neighbours(const int x, const int y, const bool toroidal);
 
 public:
     World();
-    explicit World(int size);
-    World(int width, int height);
-    World(Grid &initial_state);
+    explicit World(const int size);
+    World(const int width, const int height);
+    World(const Grid &initial_state);
     int get_width() const;
     int get_height() const;
     int get_total_cells() const;
     int get_alive_cells() const;
     int get_dead_cells() const;
     const Grid get_state() const;
-    void resize(int square_size);
-    void resize(int new_width, int new_height);
-    void step(bool toroidal = false);
-    void advance(int steps, bool torodial = false);
+    void resize(const int square_size);
+    void resize(const int new_width, const int new_height);
+    void step(const bool toroidal = false);
+    void advance(const int steps, const bool torodial = false);
 };
