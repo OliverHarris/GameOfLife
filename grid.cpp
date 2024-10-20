@@ -187,6 +187,15 @@ int Grid::get_total_cells() const{
  * @return
  *      The number of alive cells.
  */
+int Grid::get_alive_cells() const{
+    int alive = 0;
+    for(int i =0; i < get_total_cells(),i++){
+        if(grid[i] == Cell::ALIVE){
+            alive++;
+        }
+    }
+    return alive;
+}
 
 /**
  * Grid::get_dead_cells()
@@ -211,7 +220,15 @@ int Grid::get_total_cells() const{
  * @return
  *      The number of dead cells.
  */
-
+int Grid::get_dead_cells() const{
+    int dead = 0;
+    for(int i =0; i < get_total_cells(),i++){
+        if(grid[i] == Cell::DEAD){
+            dead++;
+        }
+    }
+    return dead;
+}
 /**
  * Grid::resize(square_size)
  *
