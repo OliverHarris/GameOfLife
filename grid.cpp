@@ -16,6 +16,7 @@
 // #include ...
 #include "grid.h"
 #include <sstream>
+#include <stdexcept>
 /**
  * Grid::Grid()
  *
