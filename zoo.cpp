@@ -229,7 +229,57 @@ void Zoo::save_ascii(std::string path, Grid grid)
  *          - The file cannot be opened.
  *          - The file ends unexpectedly.
  */
+Grid Zoo::load_binary(std::string path)
+{
+    std::ifstream file;
+    file.open(path, std::ios::binary);
+    if (!file.is_open())
+    {
+        throw std::runtime_error("Couldn't open file");
+    }
+    int width, height;
+    file.seekg(0, std::ios::beg); //make sure we're at the start of the file
+    file.read((char *)&width, 4);
+    file.read((char *)&height, 4);
 
+    std::cout << "--" << width << "x" << height << std::endl;
+    Grid g = Grid(width, height);
+    int x = 0;
+    int y = 0;
+    char c;
+    while (file.get(c))
+    {
+        if (y < height) //don't read the padding
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                if (x >= width)
+                {
+                    x = 0;
+                    y++;
+                }
+                if (y < height)
+                {
+                    int answer = ((c >> i) & 1);
+                    Cell val;
+                    if (answer == 1)
+                    {
+                        val = Cell::ALIVE;
+                    }
+                    else
+                    {
+                        val = Cell::DEAD;
+                    }
+                    g.set(x, y, val);
+                }
+                x++;
+            }
+        }
+    }
+
+    file.close();
+    return g;
+}
 /**
  * Zoo::save_binary(path, grid)
  *
