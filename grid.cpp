@@ -29,7 +29,10 @@
  *
  */
 
-
+Grid::Grid() : height(0), width(0)
+{
+    Grid(0);
+}
 /**
  * Grid::Grid(square_size)
  *
@@ -53,7 +56,10 @@
  * @param square_size
  *      The edge size to use for the width and height of the grid.
  */
-
+Grid::Grid(int size)
+{
+    Grid(size,size);
+}
 
 /**
  * Grid::Grid(width, height)
@@ -71,7 +77,10 @@
  * @param height
  *      The height of the grid.
  */
-
+Grid::Grid(int x, int y) : width(x), height(y)
+{
+    grid = new char[height*width];
+}
 
 /**
  * Grid::get_width()
@@ -96,7 +105,9 @@
  * @return
  *      The width of the grid.
  */
-
+int Grid::get_width(){
+    return width;
+}
 
 /**
  * Grid::get_height()
@@ -122,6 +133,9 @@
  *      The height of the grid.
  */
 
+int Grid::get_height(){
+    return height;
+}
 
 /**
  * Grid::get_total_cells()
@@ -147,7 +161,6 @@
  *      The number of total cells.
  */
 
-
 /**
  * Grid::get_alive_cells()
  *
@@ -171,7 +184,6 @@
  * @return
  *      The number of alive cells.
  */
-
 
 /**
  * Grid::get_dead_cells()
@@ -197,7 +209,6 @@
  *      The number of dead cells.
  */
 
-
 /**
  * Grid::resize(square_size)
  *
@@ -215,7 +226,6 @@
  * @param square_size
  *      The new edge size for both the width and height of the grid.
  */
-
 
 /**
  * Grid::resize(width, height)
@@ -238,7 +248,6 @@
  *      The new height for the grid.
  */
 
-
 /**
  * Grid::get_index(x, y)
  *
@@ -255,7 +264,6 @@
  * @return
  *      The 1d offset from the start of the data array where the desired cell is located.
  */
-
 
 /**
  * Grid::get(x, y)
@@ -286,7 +294,6 @@
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
 
-
 /**
  * Grid::set(x, y, value)
  *
@@ -314,7 +321,6 @@
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-
 
 /**
  * Grid::operator()(x, y)
@@ -352,7 +358,6 @@
  *      std::runtime_error or sub-class if x,y is not a valid coordinate within the grid.
  */
 
-
 /**
  * Grid::operator()(x, y)
  *
@@ -383,7 +388,6 @@
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-
 
 /**
  * Grid::crop(x0, y0, x1, y1)
@@ -419,7 +423,6 @@
  *      std::exception or sub-class if x0,y0 or x1,y1 are not valid coordinates within the grid
  *      or if the crop window has a negative size.
  */
-
 
 /**
  * Grid::merge(other, x0, y0, alive_only = false)
@@ -459,7 +462,6 @@
  *      std::exception or sub-class if the other grid being placed does not fit within the bounds of the current grid.
  */
 
-
 /**
  * Grid::rotate(rotation)
  *
@@ -482,7 +484,6 @@
  * @return
  *      Returns a copy of the grid that has been rotated.
  */
-
 
 /**
  * operator<<(output_stream, grid)
@@ -519,4 +520,3 @@
  * @return
  *      Returns a reference to the output stream to enable operator chaining.
  */
-
