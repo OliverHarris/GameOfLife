@@ -654,8 +654,68 @@ void Grid::merge(Grid other, int x0, int y0, bool alive_only)
  * @return
  *      Returns a copy of the grid that has been rotated.
  */
-Grid Grid::rotate(int rotation)
+Grid Grid::rotate(int rotation) const
 {
+    int or2 = rotation;
+    rotation = (4 + (rotation % 4)) % 4;
+    std::cout << "O " << or2 << " now " << rotation << std::endl;
+    //if it is 0, then theres no rotation
+    int _width, _height;
+    if (rotation == 1 || rotation == 3)
+    {
+        _width = height;
+        _height = width;
+    }
+    else
+    {
+        _width = width;
+        _height = height;
+    }
+    Grid newGrid = Grid(_width, _height);
+    int count = 0;
+    for (int y = 0; y < height; y++)
+    {
+        for (int x = 0; x < width; x++)
+        {
+            count++;
+
+            Cell current = (*this)(x, y);
+            if (rotation == 0)
+            {
+                newGrid(x, y) = current;
+            }
+            if (rotation == 1)
+            {
+                //90
+                int curx = _width - y - 1;
+                int cury = x;
+                // std::cout << "90 with (" << curx << "," << cury << ")"
+                //           << " which is " << current << " the grid is " << _width << "x" << _height << std::endl;
+                newGrid(curx, cury) = current;
+            }
+            if (rotation == 2)
+            {
+                //180
+
+                int curx = _width - 1 - x;
+                int cury = _height - 1 - y;
+                // std::cout << "180 with (" << curx << "," << cury << ")"
+                //           << " which is " << current << " the grid is " << _width << "x" << _height << std::endl;
+                newGrid(curx, cury) = current;
+            }
+            if (rotation == 3)
+            {
+                //270
+                int curx = y;
+                int cury = _height - x - 1;
+                // std::cout << "270 with (" << curx << "," << cury << ")"
+                //           << " which is " << current << " the grid is " << _width << "x" << _height << std::endl;
+                newGrid(curx, cury) = current;
+            }
+        }
+    }
+    std::cout << "Grid size is " << get_total_cells() << " and i've counted " << count << std::endl;
+    return newGrid;
 }
 /**
  * operator<<(output_stream, grid)
