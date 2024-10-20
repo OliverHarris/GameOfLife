@@ -22,6 +22,7 @@
  * @date March, 2020
  */
 #include "world.h"
+#include <iostream>
 // Include the minimal number of headers needed to support your implementation.
 // #include ...
 
@@ -352,51 +353,58 @@ void World::resize(int new_width, int new_height)
 int World::count_neighbours(int x, int y, bool torodial)
 {
     int alive = 0;
-    for (int xp = x - 1; x < 3; xp++)
+    for (int ypoint = y - 1; ypoint <= y + 1; ypoint++)
     {
-        int curx = xp;
-        if (curx == -1 && torodial)
+        int cury = ypoint;
+        //check if we need to go over the edge
+        if (torodial)
         {
-            curx = current.get_width() - 1;
-        }
-        else
-        {
-            continue;
-        }
-        if (curx >= current.get_width() && torodial)
-        {
-            curx = 0;
-        }
-        else
-        {
-            continue;
-        }
-        for (int yp = y - 1; y < 3; yp++)
-        {
-            int cury = yp;
-            if (cury == -1 && torodial)
-            {
-                cury = current.get_height() - 1;
-            }
-            else
-            {
-                continue;
-            }
-            if (cury >= current.get_height() && torodial)
+            if (cury > current.get_height() - 1)
             {
                 cury = 0;
             }
-            else
+            else if (cury < 0)
+            {
+                cury = current.get_height() - 1;
+            }
+        }
+        else if (cury > current.get_height() - 1 || cury < 0)
+        {
+            continue;
+        }
+        for (int xpoint = x - 1; xpoint <= x + 1; xpoint++)
+        {
+            int curx = xpoint;
+            //check if we need to go over the edge
+            if (torodial)
+            {
+                if (curx > current.get_width() - 1)
+                {
+                    curx = 0;
+                }
+                else if (curx < 0)
+                {
+                    curx = current.get_width() - 1;
+                }
+            }
+            else if (curx > current.get_width() - 1 || curx < 0)
             {
                 continue;
             }
-
-            //Check if cell is alive
-            if (current.get(x, y) == Cell::ALIVE)
+            else
             {
-                alive++;
+                //We must be okay!
+                if (current.get(curx, cury) == Cell::ALIVE)
+                {
+                    alive++;
+                }
             }
         }
+    }
+    //Remove ourselves from the count!
+    if (current.get(x, y) == Cell::ALIVE)
+    {
+        alive--;
     }
     return alive;
 }
@@ -422,12 +430,16 @@ int World::count_neighbours(int x, int y, bool torodial)
  */
 void World::step(bool toroidal)
 {
+
     for (int y = 0; y < current.get_height(); y++)
     {
         for (int x = 0; x < current.get_width(); x++)
         {
+
             int n = count_neighbours(x, y, toroidal);
+
             Cell cur = current.get(x, y);
+
             if (n < 2 && cur == Cell::ALIVE)
             {
                 //Die
@@ -448,8 +460,14 @@ void World::step(bool toroidal)
                 //live
                 next.set(x, y, Cell::ALIVE);
             }
+            else
+            {
+                //be dead
+                next.set(x, y, Cell::DEAD);
+            }
         }
     }
+
     Grid &tmp = current;
     current = next;
     next = tmp;
@@ -467,3 +485,10 @@ void World::step(bool toroidal)
  *      Optional parameter. If true then the step will consider the grid as a torus, where the left edge
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
+void World::advance(int steps, bool toroidal)
+{
+    for (int i = 0; i < steps; i++)
+    {
+        step(toroidal);
+    }
+}

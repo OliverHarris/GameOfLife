@@ -39,6 +39,6 @@ public:
     const Grid get_state() const;
     void resize(int square_size);
     void resize(int new_width, int new_height);
-    void step(bool toroidal);
-    void advance(int steps, bool torodial);
+    void step(bool toroidal = false);
+    void advance(int steps, bool torodial = false);
 };
