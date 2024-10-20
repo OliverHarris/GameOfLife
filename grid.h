@@ -32,7 +32,7 @@ private:
     int height;
     int width;
     std::vector<Cell> grid;
-    int get_index(int x, int y) const;
+    int get_index(const int x, const int y) const;
 
 public:
     Grid();
