@@ -11,13 +11,13 @@
  * @author 952283
  * @date March, 2020
  */
+
+// Include the minimal number of headers needed to support your implementation.
+// #include ...
 #include "grid.h"
 #include <sstream>
 #include <iostream>
 #include <string.h>
-// Include the minimal number of headers needed to support your implementation.
-// #include ...
-
 /**
  * Grid::Grid()
  *
@@ -58,7 +58,7 @@ Grid::Grid() : height(0), width(0)
  * @param square_size
  *      The edge size to use for the width and height of the grid.
  */
-Grid::Grid(const int &size) : height(size), width(size)
+Grid::Grid(const int &square_size) : height(square_size), width(square_size)
 {
     for (int i = 0; i < get_total_cells(); i++)
     {
