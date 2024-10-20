@@ -21,12 +21,12 @@
  * @author 952283
  * @date March, 2020
  */
+
+// Include the minimal number of headers needed to support your implementation.
+// #include ...
 #include "zoo.h"
 #include <fstream>
 #include <stdexcept>
-// Include the minimal number of headers needed to support your implementation.
-// #include ...
-
 /**
  * Zoo::glider()
  *
