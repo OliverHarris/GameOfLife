@@ -420,7 +420,40 @@ int World::count_neighbours(int x, int y, bool torodial)
  *      Optional parameter. If true then the step will consider the grid as a torus, where the left edge
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
-
+void World::step(bool toroidal)
+{
+    for (int y = 0; y < current.get_height(); y++)
+    {
+        for (int x = 0; x < current.get_width(); x++)
+        {
+            int n = count_neighbours(x, y, toroidal);
+            Cell cur = current.get(x, y);
+            if (n < 2 && cur == Cell::ALIVE)
+            {
+                //Die
+                next.set(x, y, Cell::DEAD);
+            }
+            else if ((n == 2 || n == 3) && cur == Cell::ALIVE)
+            {
+                //live
+                next.set(x, y, Cell::ALIVE);
+            }
+            else if (n > 3 && cur == Cell::ALIVE)
+            {
+                //die
+                next.set(x, y, Cell::DEAD);
+            }
+            else if (n == 3 && cur == Cell::DEAD)
+            {
+                //live
+                next.set(x, y, Cell::ALIVE);
+            }
+        }
+    }
+    Grid &tmp = current;
+    current = next;
+    next = tmp;
+}
 /**
  * World::advance(steps, toroidal)
  *
