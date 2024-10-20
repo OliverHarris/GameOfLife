@@ -349,7 +349,57 @@ void World::resize(int new_width, int new_height)
  * @return
  *      Returns the number of alive neighbours.
  */
+int World::count_neighbours(int x, int y, bool torodial)
+{
+    int alive = 0;
+    for (int xp = x - 1; x < 3; xp++)
+    {
+        int curx = xp;
+        if (curx == -1 && torodial)
+        {
+            curx = current.get_width() - 1;
+        }
+        else
+        {
+            continue;
+        }
+        if (curx >= current.get_width() && torodial)
+        {
+            curx = 0;
+        }
+        else
+        {
+            continue;
+        }
+        for (int yp = y - 1; y < 3; yp++)
+        {
+            int cury = yp;
+            if (cury == -1 && torodial)
+            {
+                cury = current.get_height() - 1;
+            }
+            else
+            {
+                continue;
+            }
+            if (cury >= current.get_height() && torodial)
+            {
+                cury = 0;
+            }
+            else
+            {
+                continue;
+            }
 
+            //Check if cell is alive
+            if (current.get(x, y) == Cell::ALIVE)
+            {
+                alive++;
+            }
+        }
+    }
+    return alive;
+}
 /**
  * World::step(toroidal)
  *
