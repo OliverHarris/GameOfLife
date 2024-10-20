@@ -361,10 +361,12 @@ int World::count_neighbours(int x, int y, bool torodial)
         {
             if (cury > current.get_height() - 1)
             {
+
                 cury = 0;
             }
             else if (cury < 0)
             {
+
                 cury = current.get_height() - 1;
             }
         }
@@ -380,10 +382,12 @@ int World::count_neighbours(int x, int y, bool torodial)
             {
                 if (curx > current.get_width() - 1)
                 {
+
                     curx = 0;
                 }
                 else if (curx < 0)
                 {
+
                     curx = current.get_width() - 1;
                 }
             }
@@ -391,13 +395,11 @@ int World::count_neighbours(int x, int y, bool torodial)
             {
                 continue;
             }
-            else
+
+            //We must be okay!
+            if (current.get(curx, cury) == Cell::ALIVE)
             {
-                //We must be okay!
-                if (current.get(curx, cury) == Cell::ALIVE)
-                {
-                    alive++;
-                }
+                alive++;
             }
         }
     }
