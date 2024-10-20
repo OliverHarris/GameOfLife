@@ -47,7 +47,16 @@
  * @return
  *      Returns a Grid containing a glider.
  */
-
+Grid Zoo::glider()
+{
+    Grid g = Grid(3);
+    g.set(1, 0, Cell::ALIVE);
+    g.set(2, 1, Cell::ALIVE);
+    g.set(2, 2, Cell::ALIVE);
+    g.set(1, 2, Cell::ALIVE);
+    g.set(0, 2, Cell::ALIVE);
+    return g;
+}
 /**
  * Zoo::r_pentomino()
  *
@@ -68,7 +77,16 @@
  * @return
  *      Returns a Grid containing a r-pentomino.
  */
-
+Grid Zoo::r_pentomino()
+{
+    Grid g = Grid(3);
+    g.set(1, 0, Cell::ALIVE);
+    g.set(2, 0, Cell::ALIVE);
+    g.set(0, 1, Cell::ALIVE);
+    g.set(1, 1, Cell::ALIVE);
+    g.set(1, 2, Cell::ALIVE);
+    return g;
+}
 /**
  * Zoo::light_weight_spaceship()
  *
@@ -90,7 +108,20 @@
  * @return
  *      Returns a grid containing a light weight spaceship.
  */
-
+Grid Zoo::light_weight_spaceship()
+{
+    Grid g = Grid(5, 4);
+    g.set(1, 0, Cell::ALIVE);
+    g.set(4, 0, Cell::ALIVE);
+    g.set(0, 1, Cell::ALIVE);
+    g.set(0, 2, Cell::ALIVE);
+    g.set(4, 2, Cell::ALIVE);
+    g.set(0, 3, Cell::ALIVE);
+    g.set(1, 3, Cell::ALIVE);
+    g.set(2, 3, Cell::ALIVE);
+    g.set(3, 3, Cell::ALIVE);
+    return g;
+}
 /**
  * Zoo::load_ascii(path)
  *
@@ -242,7 +273,7 @@ Grid Zoo::load_binary(std::string path)
     file.read((char *)&width, 4);
     file.read((char *)&height, 4);
 
-      Grid g = Grid(width, height);
+    Grid g = Grid(width, height);
     int x = 0;
     int y = 0;
     char c;
