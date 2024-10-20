@@ -9,7 +9,7 @@
  * @date March, 2020
  */
 #pragma once
-
+#include "grid.h"
 // Add the minimal number of includes you need in order to declare the class.
 // #include ...
 
@@ -19,9 +19,20 @@
  * A World holds two equally sized Grid objects for the current state and next state.
  *      - These buffers should be swapped using std::swap after each update step.
  */
-class World {
-    // How to draw an owl:
-    //      Step 1. Draw a circle.
-    //      Step 2. Draw the rest of the owl.
+class World
+{
+private:
+    Grid current;
+    Grid next;
 
+public:
+    World();
+    explicit World(int size);
+    World(int width, int height);
+    World(Grid &initial_state);
+    int get_width() const;
+    int get_height() const;
+    int get_total_cells() const;
+    int get_alive_cells() const;
+    int get_dead_cells() const;
 };
