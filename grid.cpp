@@ -14,6 +14,7 @@
 #include "grid.h"
 #include <sstream>
 #include <iostream>
+#include <string.h>
 // Include the minimal number of headers needed to support your implementation.
 // #include ...
 
@@ -288,6 +289,30 @@ void Grid::resize(int size)
  */
 void Grid::resize(int new_width, int new_height)
 {
+    std::vector<char> newGrid;
+    for (int y = 0; y < new_height; y++)
+    {
+        for (int x = 0; x < new_width; x++)
+        {
+            int pos = (y * new_height) + x;
+            if (x > width || y > height)
+            {
+                //the new grid is larger
+                newGrid.push_back(Cell::DEAD);
+            }
+            else
+            {
+                //We can copy from the original grid
+                // char *answer;
+                // strcpy(answer, &grid[get_index(x, y)]);
+                newGrid.push_back(Cell::DEAD);
+            }
+        }
+    }
+    grid.clear();
+    grid = newGrid;
+    width = new_width;
+    height = new_height;
 }
 
 /**
