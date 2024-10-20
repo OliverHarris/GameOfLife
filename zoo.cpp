@@ -23,7 +23,6 @@
  */
 #include "zoo.h"
 #include <fstream>
-#include <iostream>
 // Include the minimal number of headers needed to support your implementation.
 // #include ...
 
