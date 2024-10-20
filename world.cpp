@@ -104,22 +104,6 @@ World::World(const Grid &initial_state) : current(initial_state), next(initial_s
 {
 }
 
-/** World::~World()
- * 
- *  Deconstructs the World
- * 
- *  @example
-*      // Make a 16x9 grid
- *      Grid grid(16, 9);
- *
- *      // Make a world by using a grid as an initial state
- *      World world(grid);
- *      delete world;
- */
-World::~World()
-{
-}
-
 /**
  * World::get_width()
  *
