@@ -30,7 +30,7 @@ class Grid
 private:
     int height;
     int width;
-    std::vector<char> grid;
+    std::vector<Cell> grid;
     int get_index(int x, int y) const;
 
 public:
@@ -49,6 +49,8 @@ public:
     Grid crop(int x0, int y0, int x1, int y1) const;
     void merge(Grid, int x0, int y0, bool alive_only);
     Grid rotate(int);
+    // Cell &operator()(const int x, const int y);
+    //const Cell &operator()(const int x, const int y) const;
 
     // How to draw an owl:
     //      Step 1. Draw a circle.

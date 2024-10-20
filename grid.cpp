@@ -289,7 +289,7 @@ void Grid::resize(int size)
  */
 void Grid::resize(int new_width, int new_height)
 {
-    std::vector<char> newGrid;
+    std::vector<Cell> newGrid;
     for (int y = 0; y < new_height; y++)
     {
         for (int x = 0; x < new_width; x++)
@@ -376,6 +376,7 @@ Cell Grid::get(int x, int y) const
         throw std::length_error("Y is out of range");
     }
     char val = grid[get_index(x, y)];
+    //char val = grid(x, y);
     Cell answer;
     switch (val)
     {
@@ -425,6 +426,7 @@ void Grid::set(int x, int y, Cell value)
     {
         throw std::length_error("Y is out of range");
     }
+    //(x, y) = value;
 
     grid[get_index(x, y)] = value;
 }
@@ -463,7 +465,12 @@ void Grid::set(int x, int y, Cell value)
  * @throws
  *      std::runtime_error or sub-class if x,y is not a valid coordinate within the grid.
  */
+// Cell &Grid::operator()(const int x, const int y)
+// {
+//     int loc = get_index(x, y);
 
+//     return grid.at(loc);
+// }
 /**
  * Grid::operator()(x, y)
  *
@@ -494,7 +501,21 @@ void Grid::set(int x, int y, Cell value)
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-
+// const Cell &Grid::operator()(const int x, const int y) const
+// {
+//     char val = grid[get_index(x, y)];
+//     Cell answer;
+//     switch (val)
+//     {
+//     case ' ':
+//         answer = Cell::DEAD;
+//         break;
+//     case '#':
+//         answer = Cell::ALIVE;
+//         break;
+//     }
+//     return answer;
+// }
 /**
  * Grid::crop(x0, y0, x1, y1)
  *
