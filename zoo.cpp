@@ -22,7 +22,8 @@
  * @date March, 2020
  */
 #include "zoo.h"
-
+#include <fstream>
+#include <iostream>
 // Include the minimal number of headers needed to support your implementation.
 // #include ...
 
@@ -47,7 +48,6 @@
  *      Returns a Grid containing a glider.
  */
 
-
 /**
  * Zoo::r_pentomino()
  *
@@ -68,7 +68,6 @@
  * @return
  *      Returns a Grid containing a r-pentomino.
  */
-
 
 /**
  * Zoo::light_weight_spaceship()
@@ -91,7 +90,6 @@
  * @return
  *      Returns a grid containing a light weight spaceship.
  */
-
 
 /**
  * Zoo::load_ascii(path)
@@ -117,8 +115,47 @@
  *          - Newline characters are not found when expected during parsing.
  *          - The character for a cell is not the ALIVE or DEAD character.
  */
-
-
+Grid Zoo::load_ascii(std::string path)
+{
+    std::ifstream file;
+    file.open(path, std::ios::in);
+    if (!file.is_open())
+    {
+        throw std::runtime_error("Couldn't open file");
+    }
+    bool first = true;
+    int width, height;
+    int x = 0, y = 0;
+    Grid g;
+    //First two will be the width and height
+    file >> width;
+    file >> height;
+    g = Grid(width, height);
+    std::string line;
+    getline(file, line);
+    while (getline(file, line) && y < height)
+    {
+        while (x < width && line.size() > 0)
+        {
+            char c = line.at(x);
+            Cell answer;
+            if (c == Cell::ALIVE)
+            {
+                answer = Cell::ALIVE;
+            }
+            else
+            {
+                answer = Cell::DEAD;
+            }
+            g.set(x, y, answer);
+            x++;
+        }
+        y++;
+        x = 0;
+    }
+    file.close();
+    return g;
+}
 /**
  * Zoo::save_ascii(path, grid)
  *
@@ -148,7 +185,6 @@
  *      Throws std::runtime_error or sub-class if the file cannot be opened.
  */
 
-
 /**
  * Zoo::load_binary(path)
  *
@@ -171,7 +207,6 @@
  *          - The file cannot be opened.
  *          - The file ends unexpectedly.
  */
-
 
 /**
  * Zoo::save_binary(path, grid)
@@ -201,4 +236,3 @@
  * @throws
  *      Throws std::runtime_error or sub-class if the file cannot be opened.
  */
-
