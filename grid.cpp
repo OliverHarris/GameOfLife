@@ -31,9 +31,8 @@
  *
  */
 
-Grid::Grid() : height(0), width(0)
+Grid::Grid() : Grid(0)
 {
-    Grid(0);
 }
 /**
  * Grid::Grid(square_size)
@@ -58,12 +57,8 @@ Grid::Grid() : height(0), width(0)
  * @param square_size
  *      The edge size to use for the width and height of the grid.
  */
-Grid::Grid(const int &square_size) : height(square_size), width(square_size)
+Grid::Grid(const int square_size) : Grid(square_size, square_size)
 {
-    for (int i = 0; i < get_total_cells(); i++)
-    {
-        grid.push_back(Cell::DEAD);
-    }
 }
 
 /**
