@@ -529,8 +529,28 @@ void Grid::set(int x, int y, Cell value)
  *      std::exception or sub-class if x0,y0 or x1,y1 are not valid coordinates within the grid
  *      or if the crop window has a negative size.
  */
-Grid Grid::crop(int x0, int y0, int x1, int y1)
+Grid Grid::crop(int x0, int y0, int x1, int y1) const
 {
+    if (x0 < 0 || x1 > width || y0 < 0 || y1 > height)
+    {
+        throw std::length_error("The values given are out of range.");
+    }
+    else if (x0 > x1 || y0 > y1)
+    {
+        throw std::length_error("Crop is a negative window");
+    }
+
+    int _width = x1 - x0;
+    int _height = y1 - y0;
+    Grid newGrid = Grid(_width, _height);
+    for (int y = 0; y < _height; y++)
+    {
+        for (int x = 0; x < _width; x++)
+        {
+            newGrid.set(x, y, get(x + x0, y + y0));
+        }
+    }
+    return newGrid;
 }
 /**
  * Grid::merge(other, x0, y0, alive_only = false)
