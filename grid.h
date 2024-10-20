@@ -36,9 +36,9 @@ public:
     Grid();
     Grid(int);
     Grid(int x, int y);
-    int get_height();
-    int get_width();
-    int get_total_cells();
+    int get_height() const;
+    int get_width() const ;
+    int get_total_cells() const;
     // How to draw an owl:
     //      Step 1. Draw a circle.
     //      Step 2. Draw the rest of the owl.
