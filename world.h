@@ -9,10 +9,10 @@
  * @date March, 2020
  */
 #pragma once
-#include "grid.h"
+
 // Add the minimal number of includes you need in order to declare the class.
 // #include ...
-
+#include "grid.h"
 /**
  * Declare the structure of the World class for representing a 2d grid world.
  *
