@@ -386,6 +386,7 @@ void Zoo::save_binary(const std::string &path, const Grid &grid)
     file.write((char *)&width, 4);
     file.write((char *)&height, 4);
     char *buffer = new char;
+    *buffer = 0;
 
     int size = 0;
     for (int y = 0; y < grid.get_height(); y++)
@@ -409,7 +410,7 @@ void Zoo::save_binary(const std::string &path, const Grid &grid)
                 file.write(buffer, 1);
                 size = 0;
 
-                buffer[0] = 0; //Set the array to 0!
+                *buffer = 0; //reset
             }
         }
     }
