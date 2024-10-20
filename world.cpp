@@ -60,7 +60,7 @@ World::World() : current(Grid(0)), next(Grid(0))
  * @param square_size
  *      The edge size to use for the width and height of the world.
  */
-World::World(int size) : current(Grid(size)), next(Grid(size))
+World::World(const int size) : current(Grid(size)), next(Grid(size))
 {
 }
 
@@ -79,7 +79,7 @@ World::World(int size) : current(Grid(size)), next(Grid(size))
  * @param height
  *      The height of the world.
  */
-World::World(int width, int height) : current(Grid(width, height)), next(Grid(width, height))
+World::World(const int width, const int height) : current(Grid(width, height)), next(Grid(width, height))
 {
 }
 
@@ -102,7 +102,7 @@ World::World(int width, int height) : current(Grid(width, height)), next(Grid(wi
  * @param initial_state
  *      The state of the constructed world.
  */
-World::World(Grid &initial_state) : current(initial_state), next(initial_state)
+World::World(const Grid &initial_state) : current(initial_state), next(initial_state)
 {
 }
 
@@ -288,7 +288,7 @@ const Grid World::get_state() const
  * @param square_size
  *      The new edge size for both the width and height of the grid.
  */
-void World::resize(int square_size)
+void World::resize(const int square_size)
 {
     resize(square_size, square_size);
 }
@@ -314,7 +314,7 @@ void World::resize(int square_size)
  * @param new_height
  *      The new height for the grid.
  */
-void World::resize(int new_width, int new_height)
+void World::resize(const int new_width, const int new_height)
 {
     current.resize(new_width, new_height);
     next.resize(new_width, new_height);
@@ -350,7 +350,7 @@ void World::resize(int new_width, int new_height)
  * @return
  *      Returns the number of alive neighbours.
  */
-int World::count_neighbours(int x, int y, bool torodial)
+int World::count_neighbours(const int x, const int y, const bool torodial)
 {
     int alive = 0;
     for (int ypoint = y - 1; ypoint <= y + 1; ypoint++)
@@ -430,7 +430,7 @@ int World::count_neighbours(int x, int y, bool torodial)
  *      Optional parameter. If true then the step will consider the grid as a torus, where the left edge
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
-void World::step(bool toroidal)
+void World::step(const bool toroidal)
 {
 
     for (int y = 0; y < current.get_height(); y++)
@@ -487,7 +487,7 @@ void World::step(bool toroidal)
  *      Optional parameter. If true then the step will consider the grid as a torus, where the left edge
  *      wraps to the right edge and the top to the bottom. Defaults to false.
  */
-void World::advance(int steps, bool toroidal)
+void World::advance(const int steps, const bool toroidal)
 {
     for (int i = 0; i < steps; i++)
     {
