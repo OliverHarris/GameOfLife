@@ -298,6 +298,7 @@ Grid Zoo::load_binary(const std::string &path)
     int x = 0;
     int y = 0;
     char c;
+    int count = 0;
     while (file.get(c))
     {
         if (y < height) //don't read the padding
@@ -321,11 +322,17 @@ Grid Zoo::load_binary(const std::string &path)
                     {
                         val = Cell::DEAD;
                     }
+                    count++;
                     g.set(x, y, val);
                 }
                 x++;
             }
         }
+    }
+    if (count != g.get_total_cells())
+    {
+        file.close();
+        throw std::runtime_error("Unexpected end of file");
     }
 
     file.close();
