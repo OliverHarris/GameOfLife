@@ -412,9 +412,8 @@ void Grid::set(const int x, const int y, const Cell value)
     {
         throw std::length_error("Y is out of range");
     }
+    //Below is for our operator, I think it looks nice
     (*this)(x, y) = value;
-
-    //grid[get_index(x, y)] = value;
 }
 /**
  * Grid::operator()(x, y)
@@ -458,9 +457,9 @@ Cell &Grid::operator()(const int x, const int y)
     {
         loc = get_index(x, y);
     }
-    catch (const std::exception &ex)
+    catch (const std::length_error &ex)
     {
-        std::cerr << ex.what() << std::endl;
+        throw ex;
     }
     return grid.at(loc);
 }
@@ -501,9 +500,10 @@ const Cell &Grid::operator()(const int x, const int y) const
     {
         loc = get_index(x, y);
     }
-    catch (const std::exception &ex)
+    catch (const std::length_error &ex)
     {
-        std::cerr << ex.what() << std::endl;
+        //No cleanup needed here
+        throw ex;
     }
     return grid.at(loc);
 }
