@@ -31,7 +31,7 @@
  *
  */
 
-Grid::Grid() : Grid(0)
+Grid::Grid() : height(0), width(0)
 {
 }
 /**
@@ -77,9 +77,10 @@ Grid::Grid(const int square_size) : Grid(square_size, square_size)
  * @param height
  *      The height of the grid.
  */
-Grid::Grid(int x, int y) : height(y), width(x)
+Grid::Grid(const int _width, const int _height) : height(_height), width(_width)
 {
-    for (int i = 0; i < get_total_cells(); i++)
+    int totalcells = get_total_cells();
+    for (int i = 0; i < totalcells; i++)
     {
         grid.push_back(Cell::DEAD);
     }
@@ -258,9 +259,9 @@ int Grid::get_dead_cells() const
  * @param square_size
  *      The new edge size for both the width and height of the grid.
  */
-void Grid::resize(int size)
+void Grid::resize(int square_size)
 {
-    resize(size, size);
+    resize(square_size, square_size);
 }
 /**
  * Grid::resize(width, height)
@@ -282,9 +283,10 @@ void Grid::resize(int size)
  * @param new_height
  *      The new height for the grid.
  */
-void Grid::resize(int new_width, int new_height)
+void Grid::resize(const int new_width, const int new_height)
 {
-    std::vector<Cell> newGrid;
+    std::vector<Cell> newGrid; //We don't want to init a new Grid as this
+    // Will fill it to dead for me. So we can save one loop
     for (int y = 0; y < new_height; y++)
     {
         for (int x = 0; x < new_width; x++)
@@ -292,13 +294,11 @@ void Grid::resize(int new_width, int new_height)
             if (x > width - 1 || y > height - 1)
             {
                 //the new grid is larger
+                //Default is dead :(
                 newGrid.push_back(Cell::DEAD);
             }
             else
             {
-                //We can copy from the original grid
-                // char *answer;
-                // strcpy(answer, &grid[get_index(x, y)]);
                 newGrid.push_back(grid[get_index(x, y)]);
             }
         }
@@ -326,7 +326,7 @@ void Grid::resize(int new_width, int new_height)
  *      The 1d offset from the start of the data array where the desired cell is located.
  */
 
-int Grid::get_index(int x, int y) const
+int Grid::get_index(const int x, const int y) const
 {
     return (y * width) + x;
 }
@@ -359,15 +359,19 @@ int Grid::get_index(int x, int y) const
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-Cell Grid::get(int x, int y) const
+const Cell Grid::get(const int x, const int y) const
 {
-    if (x > width)
+    if (x > width || x < 0)
     {
-        throw std::length_error("X is out of range");
+        std::ostringstream errs;
+        errs << "X is out of range. X is " << x << " min is 0, max is " << width - 1;
+        throw std::length_error(errs.str());
     }
-    else if (y > height)
+    else if (y > height || x < 0)
     {
-        throw std::length_error("Y is out of range");
+        std::ostringstream errs;
+        errs << "Y is out of range. Y is " << y << " min is 0, max is " << height - 1;
+        throw std::length_error(errs.str());
     }
     return (*this)(x, y);
 }
@@ -398,7 +402,7 @@ Cell Grid::get(int x, int y) const
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-void Grid::set(int x, int y, Cell value)
+void Grid::set(const int x, const int y, const Cell value)
 {
     if (x > width)
     {
@@ -447,7 +451,7 @@ void Grid::set(int x, int y, Cell value)
  * @throws
  *      std::runtime_error or sub-class if x,y is not a valid coordinate within the grid.
  */
-Cell &Grid::operator()(int x, int y)
+Cell &Grid::operator()(const int x, const int y)
 {
     int loc;
     try
@@ -490,7 +494,7 @@ Cell &Grid::operator()(int x, int y)
  * @throws
  *      std::exception or sub-class if x,y is not a valid coordinate within the grid.
  */
-const Cell &Grid::operator()(int x, int y) const
+const Cell &Grid::operator()(const int x, const int y) const
 {
     int loc;
     try
@@ -537,7 +541,7 @@ const Cell &Grid::operator()(int x, int y) const
  *      std::exception or sub-class if x0,y0 or x1,y1 are not valid coordinates within the grid
  *      or if the crop window has a negative size.
  */
-Grid Grid::crop(int x0, int y0, int x1, int y1) const
+Grid Grid::crop(const int x0, const int y0, const int x1, const int y1) const
 {
     if (x0 < 0 || x1 > width || y0 < 0 || y1 > height)
     {
@@ -597,7 +601,7 @@ Grid Grid::crop(int x0, int y0, int x1, int y1) const
  * @throws
  *      std::exception or sub-class if the other grid being placed does not fit within the bounds of the current grid.
  */
-void Grid::merge(Grid other, int x0, int y0, bool alive_only)
+void Grid::merge(const Grid &other, const int x0, const int y0, const bool alive_only)
 {
     //check the grid fits
     int mx = width - x0;
@@ -649,14 +653,14 @@ void Grid::merge(Grid other, int x0, int y0, bool alive_only)
  * @return
  *      Returns a copy of the grid that has been rotated.
  */
-Grid Grid::rotate(int rotation) const
+Grid Grid::rotate(const int rotation) const
 {
     int or2 = rotation;
-    rotation = (4 + (rotation % 4)) % 4;
+    int rot = (4 + (rotation % 4)) % 4;
     std::cout << "O " << or2 << " now " << rotation << std::endl;
     //if it is 0, then theres no rotation
     int _width, _height;
-    if (rotation == 1 || rotation == 3)
+    if (rot == 1 || rot == 3)
     {
         _width = height;
         _height = width;
@@ -675,11 +679,11 @@ Grid Grid::rotate(int rotation) const
             count++;
 
             Cell current = (*this)(x, y);
-            if (rotation == 0)
+            if (rot == 0)
             {
                 newGrid(x, y) = current;
             }
-            if (rotation == 1)
+            if (rot == 1)
             {
                 //90
                 int curx = _width - y - 1;
@@ -688,7 +692,7 @@ Grid Grid::rotate(int rotation) const
                 //           << " which is " << current << " the grid is " << _width << "x" << _height << std::endl;
                 newGrid(curx, cury) = current;
             }
-            if (rotation == 2)
+            if (rot == 2)
             {
                 //180
 
@@ -698,7 +702,7 @@ Grid Grid::rotate(int rotation) const
                 //           << " which is " << current << " the grid is " << _width << "x" << _height << std::endl;
                 newGrid(curx, cury) = current;
             }
-            if (rotation == 3)
+            if (rot == 3)
             {
                 //270
                 int curx = y;
