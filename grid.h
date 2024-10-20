@@ -36,22 +36,22 @@ private:
 
 public:
     Grid();
-    explicit Grid(const int size);
-    Grid(int x, int y);
+    explicit Grid(const int square_size);
+    Grid(const int width, const int height);
     int get_height() const;
     int get_width() const;
     int get_total_cells() const;
     int get_alive_cells() const;
     int get_dead_cells() const;
-    void resize(int size);
-    void resize(int x, int y);
-    Cell get(int x, int y) const;
-    void set(int x, int y, Cell value);
-    Grid crop(int x0, int y0, int x1, int y1) const;
-    void merge(Grid, int x0, int y0, bool alive_only = false);
-    Grid rotate(int) const;
-    Cell &operator()(int x, int y);
-    const Cell &operator()(int x, int y) const;
+    void resize(const int square_size);
+    void resize(const int width, const int height);
+    Cell get(const int x, const int y) const;
+    void set(const int x, const int y, const Cell value);
+    Grid crop(const int x0, const int y0, const int x1, const int y1) const;
+    void merge(const Grid &grid, const int x0, const int y0, const bool alive_only = false);
+    Grid rotate(const int rotation) const;
+    Cell &operator()(const int x, const int y);
+    const Cell &operator()(const int x, const int y) const;
     friend std::ostream &operator<<(std::ostream &os, const Grid &grid);
     // How to draw an owl:
     //      Step 1. Draw a circle.
